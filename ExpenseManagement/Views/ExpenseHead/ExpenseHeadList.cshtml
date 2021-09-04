@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ExpenseManagement.Models.BLs.ExpenseHead>
+
+@{
+    ViewBag.Title = "ExpenseHeadList";
+}
+
+<h2>ExpenseHeadList</h2>
+
+<p>
+    @{int? ID = null; }
+    @Html.ActionLink("Add", "ExpenseHead", "ExpenseHead", new { }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseHeadName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+          Actions
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseHeadName)
+            </td>
+            <td>
+                @if (item.Status == 1)
+                {
+                    <span class="badge badge-success badge-pill" style="background-color:cornflowerblue">Available</span>
+                }
+                else
+                {
+                    <span class="badge badge-info badge-pill bg-danger" style="background-color:red">Not Available</span>
+                }
+            </td>
+            @*@(true ? "yes" : "no")*@
+            <td>
+                @Html.ActionLink("Edit", "ExpenseHead", "ExpenseHead", new { ID = item.ExpensHeadID},new { }) |
+                @Html.ActionLink("Details", "Details", "ExpenseHead", new {ID = item.ExpensHeadID }) |
+                @Html.ActionLink("Delete", "Delete", "ExpenseHead", new { ID = item.ExpensHeadID},new { })
+            </td>
+        </tr>
+    }
+
+</table>

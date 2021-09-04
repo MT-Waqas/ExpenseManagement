@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ExpenseManagement.Models.BLs.Expenses>
+
+@{
+    ViewBag.Title = "ExpenseList";
+}
+
+<h2>ExpenseList</h2>
+
+<p>
+    @Html.ActionLink("Add", "Expense","",new {@class="btn btn-success" })
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                Expense Head
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseHeadName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                </td>
+                <td>
+                    @item.ExpenseDate.Value.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Expense", new { id = item.ExpenseID }, new { @class = "btn btn-default" }) |
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ExpenseID }, new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
