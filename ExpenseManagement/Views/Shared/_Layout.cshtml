@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Management System</title>
     @Styles.Render("~/Content/css")
+    <link href="~/assets/Toster/tostercs/toastr.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/assets/DataTables-1.11.1/css/jquery.dataTables.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-default navbar-btn">
@@ -23,7 +25,9 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @*@{int? ID = null; }*@
                     <li>@Html.ActionLink("ExpenseHead", "Index", "ExpenseHead")</li>
+                    <li>@Html.ActionLink("SubExpenseHead", "SubExpenseHeads", "SubExpenseHead")</li>
                     <li>@Html.ActionLink("Expense", "ExpenseList", "Expenses")</li>
+                    <li><a href="/Filter_Expenses/FilterExpenses">Filter Expenses</a></li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -37,9 +41,48 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+    <style>
+        td.highlight {
+            background-color: whitesmoke !important;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/assets/Toster/tosterJs/toastr.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/assets/DataTables-1.11.1/js/jquery.dataTables.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#table_id').DataTable();
+
+        $('#table_id tbody')
+            .on('mouseenter', 'td', function () {
+                var colIdx = table.cell(this).index().column;
+
+                $(table.cells().nodes()).removeClass('highlight');
+                $(table.column(colIdx).nodes()).addClass('highlight');
+            });
+    });
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@TempData["bit"]'!=null) {
+            if ('@TempData["bit"]' == 1) {
+                toastr.success("Data Added Successfully");
+            }
+            else if ('@TempData["bit"]'==2) {
+                toastr.success("Data Updated Successfully");
+            }
+            else if ('@TempData["bit"]'==3) {
+                                toastr.success("Record Deleted Successfully","Message");
+            }
+            else if('@TempData["bit"]'==4) {
+                toastr.error("Already Exists", "Alert");
+            }
+        }
+    })
+</script>

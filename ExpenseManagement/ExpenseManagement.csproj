@@ -120,14 +120,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\ExpenseHeadController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
+    <Compile Include="Controllers\Filter_ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SubExpenseHeadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BLs\BL_Expenses.cs" />
     <Compile Include="Models\BLs\BL_Expense_Head.cs" />
+    <Compile Include="Models\BLs\BL_SubExpenseHead.cs" />
+    <Compile Include="Models\BLs\ViewModel.cs" />
     <Compile Include="Models\Custom\Actions.cs" />
     <Compile Include="Models\Custom\custom.cs" />
     <Compile Include="Models\Custom\Image.cs" />
@@ -136,6 +141,51 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap4.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap4.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap5.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap5.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bulma.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.bulma.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.dataTables.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.dataTables.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.foundation.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.foundation.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.jqueryui.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.jqueryui.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.semanticui.css" />
+    <Content Include="assets\DataTables-1.11.1\css\dataTables.semanticui.min.css" />
+    <Content Include="assets\DataTables-1.11.1\css\jquery.dataTables.css" />
+    <Content Include="assets\DataTables-1.11.1\css\jquery.dataTables.min.css" />
+    <Content Include="assets\DataTables-1.11.1\images\sort_asc.png" />
+    <Content Include="assets\DataTables-1.11.1\images\sort_asc_disabled.png" />
+    <Content Include="assets\DataTables-1.11.1\images\sort_both.png" />
+    <Content Include="assets\DataTables-1.11.1\images\sort_desc.png" />
+    <Content Include="assets\DataTables-1.11.1\images\sort_desc_disabled.png" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bootstrap.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bootstrap.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bootstrap4.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bootstrap4.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bootstrap5.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bootstrap5.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bulma.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.bulma.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.dataTables.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.dataTables.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.foundation.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.foundation.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.jqueryui.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.jqueryui.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.semanticui.js" />
+    <Content Include="assets\DataTables-1.11.1\js\dataTables.semanticui.min.js" />
+    <Content Include="assets\DataTables-1.11.1\js\jquery.dataTables.js" />
+    <Content Include="assets\DataTables-1.11.1\js\jquery.dataTables.min.js" />
+    <Content Include="assets\Toster\tostercs\toastr.css" />
+    <Content Include="assets\Toster\tostercs\toastr.min.css" />
+    <Content Include="assets\Toster\tosterJs\toastr.js" />
+    <Content Include="assets\Toster\tosterJs\toastr.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -146,6 +196,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="assets\Toster\tostercs\toastr.less" />
+    <Content Include="assets\Toster\tostercs\toastr.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -175,9 +227,14 @@
     <Content Include="Views\ExpenseHead\ExpenseHeadList.cshtml" />
     <Content Include="Views\Expenses\ExpenseList.cshtml" />
     <Content Include="Views\Expenses\Expense.cshtml" />
+    <Content Include="Views\Shared\_Filtered_Expenses.cshtml" />
+    <Content Include="Views\Filter_Expenses\FilterExpenses.cshtml" />
+    <Content Include="Views\SubExpenseHead\SubExpenseHeads.cshtml" />
+    <Content Include="Views\SubExpenseHead\SubExpenseHead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DashBoard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -37,25 +37,34 @@ namespace ExpenseManagement.Controllers
             if (ModelState.IsValid)
             {
                 if (expenseHead.ExpensHeadID > 0)
-                {
-                    BL_Expense_Head.Save(expenseHead,false);
-                    ModelState.AddModelError("ExpenseHeadName", Msg.Message);
-                    if (Msg.Message != "")
+                {   
+                    if (BL_Expense_Head.Save(expenseHead, false))
                     {
+                        TempData["bit"] = 2;
+                        ModelState.Clear();
+                        return RedirectToAction("Index", "ExpenseHead");
+                    }
+                    else
+                    {
+                        TempData["bit"] = 4;
                         return View("ExpenseHead");
                     }
                 }
                 else
                 {
-                    BL_Expense_Head.Save(expenseHead,true);
-                    ModelState.AddModelError("ExpenseHeadName",Msg.Message);
-                    if (Msg.Message!=""&&Msg.Message!=null)
+                    if (BL_Expense_Head.Save(expenseHead, true)==true)
                     {
+                        TempData["bit"] = 1;
+                        ModelState.Clear();
+                        return RedirectToAction("Index", "ExpenseHead");
+
+                    }
+                    else
+                    {
+                        TempData["bit"] = 4;
                         return View("ExpenseHead");
                     }
                 }
-                ModelState.Clear();
-                return RedirectToAction("Index", "ExpenseHead");
             }
             else
             {
@@ -64,7 +73,8 @@ namespace ExpenseManagement.Controllers
         }
         public ActionResult Delete (int ID)
         {
-             BL_Expense_Head.Delete(ID);
+            TempData["bit"] = 3;
+            BL_Expense_Head.Delete(ID);
             return RedirectToAction("Index");
         }
     }

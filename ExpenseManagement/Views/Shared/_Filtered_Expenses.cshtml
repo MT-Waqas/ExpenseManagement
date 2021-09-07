@@ -1,14 +1,9 @@
-﻿@model IEnumerable<ExpenseManagement.Models.BLs.Expenses>
-
-@{
-    ViewBag.Title = "ExpenseList";
-}
-
-<h2>ExpenseList</h2>
-
-<p>
-    @Html.ActionLink("Add", "Expense","",new {@class="btn btn-success" })
-</p>
+﻿@model ExpenseManagement.Models.BLs.ViewModel
+@*<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/assets/DataTables-1.11.1/css/jquery.dataTables.css" rel="stylesheet" />
+</head>*@
 <div class="table-responsive">
     <table class="row-border hover order-column table-condensed table-bordered" id="table_id">
         <thead>
@@ -17,19 +12,19 @@
                     Expense Head
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ExpenseAmount)
+                    @Html.DisplayNameFor(model => model.Expense.ExpenseAmount)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ExpenseDate)
+                    @Html.DisplayNameFor(model => model.Expense.ExpenseDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    @Html.DisplayNameFor(model => model.Expense.Description)
                 </th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Expenses)
             {
                 <tr>
                     <td>
@@ -54,3 +49,17 @@
         </tbody>
     </table>
 </div>
+@*<script src="~/assets/DataTables-1.11.1/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ajaxComplete(function () {
+        var table = $('#table_id').DataTable();
+
+        $('#table_id tbody')
+            .on('mouseenter', 'td', function () {
+                var colIdx = table.cell(this).index().column;
+
+                $(table.cells().nodes()).removeClass('highlight');
+                $(table.column(colIdx).nodes()).addClass('highlight');
+            });
+    });
+</script>*@

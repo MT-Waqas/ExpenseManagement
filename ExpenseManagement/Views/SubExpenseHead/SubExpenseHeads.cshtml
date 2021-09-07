@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ExpenseManagement.Models.BLs.SubExpenseHead>
+
+@{
+    ViewBag.Title = "SubExpenseHeads";
+}
+
+<h2>SubExpenseHeads</h2>
+
+<p>
+    @Html.ActionLink("Create New", "SubExpenseHead")
+</p>
+<table class="row-border hover order-column table-condensed table-bordered" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubExpenseHeadName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseHeadID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubExpenseStatus)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubExpenseHeadName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseHeadID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubExpenseStatus)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SubExpenseHeadID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.SubExpenseHeadID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SubExpenseHeadID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

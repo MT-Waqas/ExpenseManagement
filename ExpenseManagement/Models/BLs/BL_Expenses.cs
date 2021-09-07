@@ -69,7 +69,10 @@ namespace ExpenseManagement.Models.BLs
         public int? ExpenseID { get; set; }
         [Required]
         public int? ExpenseHeadID { get; set; }
+        [Required]
+        public int? SubExpenseHeadID { get; set; }
         public string ExpenseHeadName { get; set; }
+        public string SubExpenseHeadName { get; set; }
         [Required]
         public decimal? ExpenseAmount { get; set; }
         [Required]

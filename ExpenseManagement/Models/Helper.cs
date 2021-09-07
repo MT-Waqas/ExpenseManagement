@@ -28,6 +28,35 @@ namespace ExpenseManagement.Models
                 throw;
             }
         }
+        public static bool IsExistOnUpdate(string TableName, string ColumnName1, string ColumnName2, string Value1, string Value2)
+        {
+
+            string query = "select * from " + TableName + " where " + ColumnName1 + "='" + Value1 + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.CommandType = CommandType.Text;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count == 1)
+            {
+                if (dt.Rows[0][ColumnName2].ToString() == Value2)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else if (dt.Rows.Count > 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static DataTable sp_Execute_Table(string storeprocedure,SqlParameter[] prm)
         {
             DataTable dt = new DataTable();
@@ -38,12 +67,11 @@ namespace ExpenseManagement.Models
                 cmd.Parameters.AddRange(prm);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
-
+                con.Close();
             }
             catch (Exception e)
             {
-
-                throw;
+                con.Close();
             }
             return dt;
         }
@@ -137,7 +165,7 @@ namespace ExpenseManagement.Models
                 return false;
             }
         }
-        public static bool IsExist(string TableName, string ColumnName, string Value,bool IsNew)
+        public static bool IsExist(string TableName, string ColumnName, string Value)
         {
             string query = "select * from " + TableName + " where " + ColumnName + "='" + Value + "'";
             //SqlParameter[] prm = new SqlParameter("@Value", Value);
