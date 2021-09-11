@@ -14,7 +14,10 @@
         <thead>
             <tr>
                 <th>
-                    Expense Head
+                    @Html.DisplayNameFor(model=>model.ExpenseHeadName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubExpenseHeadName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ExpenseAmount)
@@ -31,25 +34,28 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseHeadName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseAmount)
-                    </td>
-                    <td>
-                        @item.ExpenseDate.Value.ToShortDateString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Expense", new { id = item.ExpenseID }, new { @class = "btn btn-default" }) |
-                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ExpenseID }, new { @class = "btn btn-default" })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseHeadName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubExpenseHeadName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                </td>
+                <td>
+                    @item.ExpenseDate.Value.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Expense", new { id = item.ExpenseID }, new { @class = "btn btn-default" }) |
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ExpenseID }, new { @class = "btn btn-default" })
+                </td>
+            </tr>
             }
         </tbody>
     </table>

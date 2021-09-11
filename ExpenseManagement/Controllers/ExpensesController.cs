@@ -9,14 +9,12 @@ namespace ExpenseManagement.Controllers
 {
     public class ExpensesController : Controller
     {
-        // GET: Expenses
 
         public ActionResult ExpenseList()
         {
 
             return View(BL_Expenses.GetExpenses());
         }
-        // POST: Expenses/Create
         [HttpPost]
         public ActionResult Expense(Expenses expenses)
         {
@@ -42,7 +40,6 @@ namespace ExpenseManagement.Controllers
                 return View("Expense");
             }
         }
-        // GET: Expenses/Details/5
         public ActionResult Expense(int? id)
         {
             Expenses expenses = new Expenses();
@@ -59,7 +56,7 @@ namespace ExpenseManagement.Controllers
             }
             
         }
-        // GET: Expenses/Delete/5
+
         public ActionResult Delete(int id)
         {
 

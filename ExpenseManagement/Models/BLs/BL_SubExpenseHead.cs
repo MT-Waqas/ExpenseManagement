@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web;
 using ExpenseManagement.Models.Custom;
 using ExpenseManagement.Models;
-
+using System.Web.Mvc;
 
 namespace ExpenseManagement.Models.BLs
 {
@@ -66,6 +66,7 @@ namespace ExpenseManagement.Models.BLs
                 expenseHead.SubExpenseHeadID = Convert.ToInt32(dr["SubExpenseHeadID"]);
                 expenseHead.ExpenseHeadID = Convert.ToInt32(dr["ExpenseHeadID"]);
                 expenseHead.SubExpenseHeadName = Convert.ToString(dr["SubExpenseHeadName"]);
+                expenseHead.ExpenseHeadName = Convert.ToString(dr["ExpenseHeadName"]);
                 expenseHead.SubExpenseStatus = Convert.ToInt32(dr["SubExpenseStatus"]);
 
                 heads.Add(expenseHead);
@@ -116,6 +117,7 @@ namespace ExpenseManagement.Models.BLs
         public int? SubExpenseStatus { get; set; }
         [DisplayName("Expense Head")]
         public string ExpenseHeadName { get; set; }
+        public SelectList Subheadlist { get; set; }
 
     }
 }

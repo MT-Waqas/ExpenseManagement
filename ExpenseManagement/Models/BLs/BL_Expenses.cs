@@ -19,6 +19,7 @@ namespace ExpenseManagement.Models.BLs
                 {
                     new SqlParameter("ExpenseID",expenses.ExpenseID),
                     new SqlParameter("ExpenseHeadID",expenses.ExpenseHeadID),
+                    new SqlParameter("SubExpenseHeadID",expenses.SubExpenseHeadID),
                      new SqlParameter("ExpenseAmount",expenses.ExpenseAmount),
                     new SqlParameter("ExpenseDate",expenses.ExpenseDate),
                     new SqlParameter("Description",expenses.Description),
@@ -37,6 +38,7 @@ namespace ExpenseManagement.Models.BLs
             {
                     new SqlParameter("@ExpenseID",expenses.ExpenseID),
                     new SqlParameter("ExpenseHeadID",expenses.ExpenseHeadID),
+                    new SqlParameter("SubExpenseHeadID",expenses.SubExpenseHeadID),
                     new SqlParameter("ExpenseDate",expenses.ExpenseDate),
                     new SqlParameter("type",Actions.Select)
             };
@@ -48,6 +50,7 @@ namespace ExpenseManagement.Models.BLs
                 expenses1.ExpenseHeadID = Convert.ToInt32(dr["ExpenseHeadID"]);
                 expenses1.ExpenseAmount = Convert.ToDecimal(dr["ExpenseAmount"]);
                 expenses1.ExpenseHeadName = Convert.ToString(dr["ExpenseHeadName"]);
+                expenses1.SubExpenseHeadName = Convert.ToString(dr["SubExpenseHeadName"]);   
                 expenses1.ExpenseDate = (dr["ExpenseDate"]) as DateTime?;
                 expenses1.Description = Convert.ToString(dr["Description"]);
                 expensess.Add(expenses1);

@@ -124,6 +124,7 @@
     <Compile Include="Controllers\ExpenseHeadController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\Filter_ExpensesController.cs" />
+    <Compile Include="Controllers\GetSubHeadsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SubExpenseHeadController.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,10 +232,13 @@
     <Content Include="Views\Filter_Expenses\FilterExpenses.cshtml" />
     <Content Include="Views\SubExpenseHead\SubExpenseHeads.cshtml" />
     <Content Include="Views\SubExpenseHead\SubExpenseHead.cshtml" />
+    <Content Include="Views\Shared\_Subhead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DashBoard\" />
+    <Folder Include="Views\GetSubHeads\" />
+    <Folder Include="Views\test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

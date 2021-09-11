@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.SubExpenseHeadName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExpenseHeadID)
+                @Html.DisplayNameFor(model => model.ExpenseHeadName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SubExpenseStatus)
@@ -34,10 +34,17 @@
                     @Html.DisplayFor(modelItem => item.SubExpenseHeadName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExpenseHeadID)
+                    @Html.DisplayFor(modelItem => item.ExpenseHeadName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SubExpenseStatus)
+                   @if (item.SubExpenseStatus==1)
+                   {
+                       <span class="badge" style="background-color:darkcyan">Active</span>
+                   }
+                   else
+                   {
+                <span class="badge" style="background-color:red">InActive</span> 
+                   }
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.SubExpenseHeadID }) |

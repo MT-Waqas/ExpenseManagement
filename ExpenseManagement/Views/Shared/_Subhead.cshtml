@@ -1,0 +1,10 @@
+﻿@model ExpenseManagement.Models.BLs.SubExpenseHead
+
+
+
+
+<option value="">Select Sub Head</option>
+@foreach (var item in Model.Subheadlist)
+{
+    <option value="@item.Value">@item.Text</option>
+}
