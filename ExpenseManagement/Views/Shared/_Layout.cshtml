@@ -4,36 +4,64 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Management System</title>
-    @Styles.Render("~/Content/css")
-    <link href="~/assets/Toster/tostercs/toastr.css" rel="stylesheet" />
-    @Scripts.Render("~/bundles/modernizr")
-    <link href="~/assets/DataTables-1.11.1/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/Content/Site.css" rel="stylesheet" /*@
+    <link href="~/assets/css/all.css" rel="stylesheet" />
+    <link href="/assets/Toster/tostercs/toastr.css" rel="stylesheet" />
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <link href="/assets/DataTables-1.11.1/css/jquery.dataTables.css" rel="stylesheet" />
+    <style>
+        .clr {
+            color: red;
+        }
+
+        .clrb {
+            color: blue;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-btn">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
+            <a href='@Url.Action("Index", "Home", new { area = "" })' class="navbar-brand"><i class="fa fa-file-invoice"></i></a>
+
                 @Html.ActionLink("Expense Management", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav" style="color:white">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @*@{int? ID = null; }*@
-                    <li>@Html.ActionLink("ExpenseHead", "Index", "ExpenseHead")</li>
-                    <li>@Html.ActionLink("SubExpenseHead", "SubExpenseHeads", "SubExpenseHead")</li>
-                    <li>@Html.ActionLink("Expense", "ExpenseList", "Expenses")</li>
-                    <li><a href="/Filter_Expenses/FilterExpenses">Filter Expenses</a></li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                   
+                    <li class="dropdown">
+                        <button href="#" data-toggle="dropdown" class="btn dropdown-toggle">Pages</button>
+                        <ul class="dropdown-menu">
+                            
+                            <li  >@Html.ActionLink("ExpenseHead", "Index", "ExpenseHead","",new {@class="dropdown-item"})</li>
+                            <li  >@Html.ActionLink("SubExpenseHead", "SubExpenseHeads", "SubExpenseHead","",new {@class="dropdown-item"})</li>
+                            <li  >@Html.ActionLink("Expense", "ExpenseList", "Expenses","",new {@class="dropdown-item"})</li>
+                            <li ><a href="/Filter_Expenses/FilterExpenses" class="dropdown-item">Filter Expenses</a></li>
+                            <li  >@Html.ActionLink("User", "UserList", "User","",new {@class="dropdown-item"})</li>
+                            <li  >@Html.ActionLink("About", "About", "Home","",new {@class="dropdown-item"})</li>
+                            <li  >@Html.ActionLink("Contact", "Contact", "Home","",new {@class="dropdown-item"})</li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="dropdown">
+                <a class="btn" data-toggle="dropdown">
+                    <img id="dropdownMenuButton1" aria-expanded="false" src="~/assets/images/profile.jpg" width="39" height="39" class="rounded-circle" />
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="">Profile</a></li>
+                    <li><a class="dropdown-item" href="#"></a></li>
+                    <li><a class="dropdown-item" href='@Url.Action("Logout","Account")'>Logout</a></li>
                 </ul>
             </div>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -46,11 +74,13 @@
             background-color: whitesmoke !important;
         }
     </style>
-    @*<script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>*@
     @Scripts.Render("~/bundles/jquery")
-    <script src="~/assets/Toster/tosterJs/toastr.js"></script>
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/all.js"></script>
     <script src="~/assets/DataTables-1.11.1/js/jquery.dataTables.js"></script>
+    <script src="~/assets/Toster/tosterJs/toastr.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -2,7 +2,16 @@
 
 @{
     ViewBag.Title = "Expense";
-}
+
+    var list = new SelectList(ExpenseManagement.Models.BLs.BL_Expense_Head.GetHeads(), "ExpensHeadID", "ExpenseHeadName");
+    ExpenseManagement.Models.BLs.SubExpenseHead subExpenseHead = new ExpenseManagement.Models.BLs.SubExpenseHead();
+    var sublist = new SelectList("");
+    if (Model!=null)
+    {
+        subExpenseHead.ExpenseHeadID = Model.ExpenseHeadID;
+        sublist = new SelectList(ExpenseManagement.Models.BLs.BL_SubExpenseHead.Get_SubHeads(subExpenseHead), "SubExpenseHeadID", "SubExpenseHeadName",Model.SubExpenseHeadID);
+    }
+    }
 
 <h2>Expense</h2>
 
@@ -18,7 +27,7 @@
         <div class="form-group">
             <div class="control-label col-md-2"><label>Expense Heads</label></div>
             <div class="col-md-10">
-                @{var list = new SelectList(ExpenseManagement.Models.BLs.BL_Expense_Head.GetHeads(), "ExpensHeadID", "ExpenseHeadName"); }
+                @{ }
                 @Html.DropDownListFor(model => model.ExpenseHeadID, @list as SelectList, "Select the Heads", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ExpenseHeadID, "", new { @class = "text-danger" })
             </div>
@@ -27,7 +36,7 @@
             <div class="control-label col-md-2"><label>Sub Expense Heads</label></div>
             <div class="col-md-10">
                 @{ }
-                @Html.DropDownListFor(model => model.SubExpenseHeadID, new SelectList(""), "Select the Sub Heads", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.SubExpenseHeadID,@sublist as SelectList, "Select the Sub-Heads", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SubExpenseHeadID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -70,7 +79,7 @@
 <script>
     $(document).ready(function () {
         $('#ExpenseHeadID').change(function () {
-          var eid= $('#ExpenseHeadID').val();
+            var eid = $('#ExpenseHeadID option:selected').val();
             $.ajax({
                 type: 'Post',
                 url: '/GetSubHeads/GetHeads?eid=' + eid,

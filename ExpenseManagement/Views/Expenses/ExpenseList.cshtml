@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "ExpenseList";
+    ExpenseManagement.Models.BLs.Expenses e = new ExpenseManagement.Models.BLs.Expenses();
+    e.ExpensesList= ExpenseManagement.Models.BLs.BL_Expenses.GetExpenses();
+
 }
 
 <h2>ExpenseList</h2>
@@ -9,54 +12,4 @@
 <p>
     @Html.ActionLink("Add", "Expense","",new {@class="btn btn-success" })
 </p>
-<div class="table-responsive">
-    <table class="row-border hover order-column table-condensed table-bordered" id="table_id">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model=>model.ExpenseHeadName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SubExpenseHeadName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseAmount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExpenseHeadName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SubExpenseHeadName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExpenseAmount)
-                </td>
-                <td>
-                    @item.ExpenseDate.Value.ToShortDateString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Expense", new { id = item.ExpenseID }, new { @class = "btn btn-default" }) |
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ExpenseID }, new { @class = "btn btn-default" })
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+@Html.Partial("_Filtered_Expenses",e);

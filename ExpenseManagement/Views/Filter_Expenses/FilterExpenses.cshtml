@@ -1,36 +1,41 @@
-﻿@model ExpenseManagement.Models.BLs.ViewModel
+﻿@model ExpenseManagement.Models.BLs.Expenses
     @{
         ViewBag.Title = "FilterExpenses";
     }
     <head>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
+        @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
         <link href="~/assets/DataTables-1.11.1/css/jquery.dataTables.css" rel="stylesheet" />
     </head>
     <div class="panel">
-        <div class="panel-heading">Filter Expenses</div>
-        <div class="panel-body">
-            <div>
+        <div class="panel panel-heading divider">
+        <h4><span class="panel-title active">Filter Expenses</span></h4></div>
+        <div class="panel-body panel-primary">
+            <div class="form-horizontal">
                 @using (Html.BeginForm("Filter", "Filter_Expenses", FormMethod.Post, new { @id = "frm" }))
                 {
 
-                    <div class="form-group">
-                        <label>Head</label>
+                <div class="form-group">
+                    <label class="col-md-2">Head</label>
+                    <div class="col-md-10">
                         @{var list = new SelectList(ExpenseManagement.Models.BLs.BL_Expense_Head.GetHeads(), "ExpensHeadID", "ExpenseHeadName"); }
-                        @Html.DropDownListFor(model => model.Expense.ExpenseHeadID, @list as SelectList, "Please Select the Head", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model=>model.Expense.ExpenseHeadID,"", new { @class = "text text-danger" })
+                        @Html.DropDownListFor(model => model.ExpenseHeadID, @list as SelectList, "Please Select the Head", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ExpenseHeadID, "", new { @class = "text text-danger" })
                     </div>
-                    <div class="form-group">
-                        <label>Date</label>
-                        @Html.TextBoxFor(model => model.Expense.ExpenseDate, new { @class = "form-control", @type = "date" })
-                        @Html.ValidationMessageFor(model => model.Expense.ExpenseDate, "", new { @class = "text text-danger" })
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">Date</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ExpenseDate, new { @class = "form-control", @type = "date" })
+                        @Html.ValidationMessageFor(model => model.ExpenseDate, "", new { @class = "text text-danger" })
+                    </div></div>
+                    <div class="ml-3">
+                        <button type="button" id="btnsubmit" class="btn btn-primary">Filter</button>
                     </div>
-                    <div>
-                        <button type="button" id="btnsubmit" class="btn btn-default">Submit</button>
-                    </div>
-                }
-            </div>
-            <div><h1>Record</h1></div>
+                    <br />
+                    }
+                </div>
+            @*<div><h1>Record</h1></div>*@
 
         </div>
     </div>
@@ -38,7 +43,7 @@
 
     </div>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
 
     <script type="text/javascript">
         $(document).ready(function () {

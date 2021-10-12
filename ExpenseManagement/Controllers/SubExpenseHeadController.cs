@@ -4,22 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ExpenseManagement.BasePage;
 
 namespace ExpenseManagement.Controllers
 {
-    public class SubExpenseHeadController : Controller
+    public class SubExpenseHeadController : UserBasePage
     {
         // GET: SubExpenseHead
         public ActionResult SubExpenseHeads()
         {
-          var list=  BL_SubExpenseHead.Get_SubHeads();
+            var list=  BL_SubExpenseHead.Get_SubHeads();
             return View(list);
         }
         public ActionResult SubExpenseHead(int? ID)
         {
             if (ID>0)
             {
-                return View();
+                SubExpenseHead s = new SubExpenseHead();
+                s.SubExpenseHeadID = ID;
+                SubExpenseHead sh = BL_SubExpenseHead.Get_SubHeads(s)[0];
+                return View(sh);
             }
             else
             {

@@ -3,50 +3,58 @@
 @{
     ViewBag.Title = "ExpenseHeadList";
 }
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
+</head>
 <h2>ExpenseHeadList</h2>
 
 <p>
-    @{int? ID = null; }
+    @*@{int? ID = null; }*@
     @Html.ActionLink("Add", "ExpenseHead", "ExpenseHead", new { }, new { @class = "btn btn-success" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseHeadName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-          Actions
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="row-border hover order-column table-condensed table-bordered" id="table_id">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpenseHeadName)
-            </td>
-            <td>
-                @if (item.Status == 1)
-                {
-                    <span class="badge badge-success badge-pill" style="background-color:cornflowerblue">Available</span>
-                }
-                else
-                {
-                    <span class="badge badge-info badge-pill bg-danger" style="background-color:red">Not Available</span>
-                }
-            </td>
-            @*@(true ? "yes" : "no")*@
-            <td>
-                @Html.ActionLink("Edit", "ExpenseHead", "ExpenseHead", new { ID = item.ExpensHeadID},new { }) |
-                @Html.ActionLink("Details", "Details", "ExpenseHead", new {ID = item.ExpensHeadID }) |
-                @Html.ActionLink("Delete", "Delete", "ExpenseHead", new { ID = item.ExpensHeadID},new { })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseHeadName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                Actions
+            </th>
         </tr>
-    }
+    </thead>
 
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseHeadName)
+                </td>
+                <td>
+                    @if (item.Status == 1)
+                    {
+                        <span class="badge badge-success badge-pill" style="background-color:cornflowerblue">Available</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-info badge-pill bg-danger" style="background-color:red">Not Available</span>
+                    }
+                </td>
+                <td>
+                    <a href='@Url.Action("ExpenseHead", "ExpenseHead", new { ID = item.ExpensHeadID })' class="btn btn-outline-info">
+                        <i class="fa fa-user-edit"></i>
+                    </a>
+                    <a href='@Url.Action("Delete", "ExpenseHead", new { ID = item.ExpensHeadID })' class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

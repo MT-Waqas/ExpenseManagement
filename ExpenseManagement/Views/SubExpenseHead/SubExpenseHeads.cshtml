@@ -7,7 +7,7 @@
 <h2>SubExpenseHeads</h2>
 
 <p>
-    @Html.ActionLink("Create New", "SubExpenseHead")
+    @Html.ActionLink("Create New", "SubExpenseHead", "", new { @class = "btn btn-success" })
 </p>
 <table class="row-border hover order-column table-condensed table-bordered" id="table_id">
     <thead>
@@ -37,19 +37,19 @@
                     @Html.DisplayFor(modelItem => item.ExpenseHeadName)
                 </td>
                 <td>
-                   @if (item.SubExpenseStatus==1)
-                   {
-                       <span class="badge" style="background-color:darkcyan">Active</span>
-                   }
-                   else
-                   {
-                <span class="badge" style="background-color:red">InActive</span> 
-                   }
+                    @if (item.SubExpenseStatus == 1)
+                    {
+                        <span class="badge badge-primary badge-pill">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger badge-pill">InActive</span>
+                    }
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.SubExpenseHeadID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.SubExpenseHeadID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.SubExpenseHeadID })
+                    <a href='@Url.Action("SubExpenseHead", "SubExpenseHead",new {ID= item.SubExpenseHeadID })' class="btn btn-outline-info"><i class="fa fa-user-edit"></i></a>
+                    <a href='@Url.Action("Delete", "SubExpenseHead",new {ID= item.SubExpenseHeadID })' class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+
                 </td>
             </tr>
         }

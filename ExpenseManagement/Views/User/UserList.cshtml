@@ -1,0 +1,108 @@
+﻿@model ExpenseManagement.Models.BLs.User
+
+@{
+    ViewBag.Title = "UserList";
+
+    ExpenseManagement.Models.BLs.BL_User u = new ExpenseManagement.Models.BLs.BL_User();
+    var ulist = u.GetUsers();
+}
+<head>
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<h2>UserList</h2>
+
+<p>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="getform()" data-target="#myModal">Add User  <i class="fa fa-user"></i>
+    </button>
+</p>
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">User</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="userform">
+                @*@Html.Partial("User_", Model)*@
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="divider" id="tableuser">
+
+    @*@Html.Partial("_Users_Partial",ulist)*@
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+    function getusers() {
+        $.ajax({
+            type: 'GET',
+            url: '/User/User_?ID=' + null,
+            dataType: 'html',
+            success: function (re) {
+                $('#tableuser').html(re);
+                $('#table_id').DataTable();
+                //alert(re);
+            }
+        });
+    }
+    function getuserByID(id) {
+        $.ajax({
+            type: 'GET',
+            url: '/User/User_?ID=' + id,
+            success: function (data) {
+                //$('#UserID').val(data.UserID);
+                //$('#UserName').val(data.UserName);
+                //$('#UserStatus option:Selected').val(data.UserStatus);
+                //$('#UserRole').val(data.UserRole);
+                $('#userform').html(data);
+            }
+        });
+    }
+    function getform() {
+           $.ajax({
+            type: 'GET',
+            url: '/User/UserForm',
+            success: function (data) {
+                $('#userform').html(data);
+            }
+        });
+    }
+    function Delete(id) {
+        $.ajax({
+            type: 'POST',
+            url: '/User/Delete?ID=' + id,
+            success: function (resp) {
+                if (resp == 1) {
+                    toastr.success('Record Deleted----!');
+                    getusers();
+                }
+                else {
+                    toastr.error('Error');
+                }
+            }
+        });
+    }
+    $(document).ready(function () {
+        getusers();
+        //$('#btns').click(function () {
+        //    formsubmit();
+        //});
+    });
+</script>

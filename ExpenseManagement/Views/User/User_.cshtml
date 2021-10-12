@@ -1,0 +1,100 @@
+﻿@model ExpenseManagement.Models.BLs.User
+
+@using (Html.BeginForm("User_", "User", FormMethod.Post, new { @id = "frmuser" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-lg-2 col-sm-2 col-md-2" })
+
+            <div class="col-lg-10 col-sm-10 col-md-10">
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserPassword, new { @class = "control-label col-lg-2 col-sm-2 col-md-2" })
+
+            <div class="col-lg-10 col-sm-10 col-md-10">
+                @Html.TextBoxFor(model => model.UserPassword, new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserStatus, new { @class = "control-label col-lg-2 col-sm-2 col-md-2" })
+            <div class="col-lg-10 col-sm-10 col-md-10">
+                @Html.DropDownListFor(model => model.UserStatus, new List<SelectListItem> {
+           new SelectListItem{Text="Active",Value="1"},new SelectListItem{Text="InActive",Value="2"}
+           }, "Select the Status", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserRole, new { @class = "control-label col-lg-2 col-sm-2 col-md-2" })
+            <div class="col-lg-10 col-sm-10 col-md-10">
+                @Html.DropDownListFor(model => model.UserRole, new List<SelectListItem> {
+           new SelectListItem{Text="Super Admin",Value="1"},new SelectListItem{Text="Admin",Value="2"}
+           }, "Select the User Role", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserRole, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" id="btns" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    jQuery(document).ready(function () {
+        formsubmit();
+    });
+    function formsubmit() {
+
+        $('#frmuser').submit(function (event) {
+            event.preventDefault();
+            $.validator.unobtrusive.parse($('#frmuser'));
+            var isvalid = $(this).valid();
+            if (!isvalid) {
+                return false;
+            }
+            else {
+                var form = new FormData(document.getElementById("frmuser"));
+                $.ajax({
+                    type: "POST",
+                    url: "/User/User_",
+                    data: form,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response == 1) {
+                            $('#frmuser')[0].reset();
+                            $('#myModal').modal('hide');
+                            toastr.success("Data Added Successfully----!");
+                        }
+                        else if (response == 2) {
+                             $('#frmuser')[0].reset();
+                           $('#myModal').modal('hide');
+                            toastr.success("Data Updated Successfully----!");
+
+                        }
+                        else if (response == 3) {
+                            toastr.error('Required----');
+                        }
+                        getusers();
+                    }
+                });
+            }
+
+        });
+    }
+</script>

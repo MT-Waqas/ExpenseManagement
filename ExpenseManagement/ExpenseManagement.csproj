@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -120,6 +122,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BasePage\UserBasePage.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\ExpenseHeadController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
@@ -127,21 +131,35 @@
     <Compile Include="Controllers\GetSubHeadsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SubExpenseHeadController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BLs\BL_Expenses.cs" />
     <Compile Include="Models\BLs\BL_Expense_Head.cs" />
+    <Compile Include="Models\BLs\BL_Login.cs" />
     <Compile Include="Models\BLs\BL_SubExpenseHead.cs" />
+    <Compile Include="Models\BLs\BL_User.cs" />
     <Compile Include="Models\BLs\ViewModel.cs" />
     <Compile Include="Models\Custom\Actions.cs" />
     <Compile Include="Models\Custom\custom.cs" />
     <Compile Include="Models\Custom\Image.cs" />
     <Compile Include="Models\Custom\Msg.cs" />
     <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\Interfaces\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\all.css" />
+    <Content Include="assets\css\bootstrap-grid.css" />
+    <Content Include="assets\css\bootstrap-grid.min.css" />
+    <Content Include="assets\css\bootstrap-reboot.css" />
+    <Content Include="assets\css\bootstrap-reboot.min.css" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\fontawesome.css" />
+    <Content Include="assets\css\fontawesome.min.css" />
+    <Content Include="assets\css\icons.css" />
     <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap.css" />
     <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap.min.css" />
     <Content Include="assets\DataTables-1.11.1\css\dataTables.bootstrap4.css" />
@@ -183,6 +201,14 @@
     <Content Include="assets\DataTables-1.11.1\js\dataTables.semanticui.min.js" />
     <Content Include="assets\DataTables-1.11.1\js\jquery.dataTables.js" />
     <Content Include="assets\DataTables-1.11.1\js\jquery.dataTables.min.js" />
+    <Content Include="assets\images\icons8-add-user-male-48.png" />
+    <Content Include="assets\images\icons8-people %281%29.gif" />
+    <Content Include="assets\images\profile.jpg" />
+    <Content Include="assets\js\all.js" />
+    <Content Include="assets\js\bootstrap.bundle.js" />
+    <Content Include="assets\js\bootstrap.bundle.min.js" />
+    <Content Include="assets\js\bootstrap.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\Toster\tostercs\toastr.css" />
     <Content Include="assets\Toster\tostercs\toastr.min.css" />
     <Content Include="assets\Toster\tosterJs\toastr.js" />
@@ -199,6 +225,19 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\Toster\tostercs\toastr.less" />
     <Content Include="assets\Toster\tostercs\toastr.scss" />
+    <Content Include="assets\css\bootstrap-grid.css.map" />
+    <Content Include="assets\css\bootstrap-grid.min.css.map" />
+    <Content Include="assets\css\bootstrap-reboot.css.map" />
+    <Content Include="assets\css\bootstrap-reboot.min.css.map" />
+    <Content Include="assets\css\bootstrap.css.map" />
+    <Content Include="assets\css\bootstrap.min.css.map" />
+    <Content Include="assets\js\bootstrap.bundle.js.map" />
+    <Content Include="assets\js\bootstrap.bundle.min.js.map" />
+    <Content Include="assets\js\bootstrap.js.map" />
+    <Content Include="assets\js\bootstrap.min.js.map" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -233,12 +272,27 @@
     <Content Include="Views\SubExpenseHead\SubExpenseHeads.cshtml" />
     <Content Include="Views\SubExpenseHead\SubExpenseHead.cshtml" />
     <Content Include="Views\Shared\_Subhead.cshtml" />
+    <Content Include="Views\User\UserList.cshtml" />
+    <Content Include="Views\Shared\_Users_Partial.cshtml" />
+    <Content Include="Views\User\User_.cshtml" />
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DashBoard\" />
     <Folder Include="Views\GetSubHeads\" />
-    <Folder Include="Views\test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

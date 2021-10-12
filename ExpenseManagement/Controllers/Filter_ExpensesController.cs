@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ExpenseManagement.BasePage;
 
 namespace ExpenseManagement.Controllers
 {
-    public class Filter_ExpensesController : Controller
+    public class Filter_ExpensesController : UserBasePage
     {
         // GET: Filter_Expenses
         public ActionResult FilterExpenses()
@@ -15,15 +16,11 @@ namespace ExpenseManagement.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Filter(ViewModel model1)
+        public ActionResult Filter(Expenses expenses)
         {
-                ViewModel model = new ViewModel();
-                Expenses e = new Expenses();
-                e.ExpenseHeadID = model1.Expense.ExpenseHeadID;
-                e.ExpenseDate = model1.Expense.ExpenseDate;
-                model.Expense = e;
-                model.Expenses = BL_Expenses.GetExpenses(model.Expense);
-                return PartialView("_Filtered_Expenses", model);
+            expenses.ExpensesList = BL_Expenses.GetExpenses(expenses);
+            expenses.IsFiltering = true;
+            return PartialView("_Filtered_Expenses", expenses);
         }
     }
 }

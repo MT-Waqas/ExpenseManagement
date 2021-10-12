@@ -77,7 +77,7 @@ namespace ExpenseManagement.Models.BLs
         {
               if (head.SubExpenseHeadID > 0)
                 {
-                    if (Helper.IsExistOnUpdate("tbl_SubExpenseHead", "SubExpenseHeadName", "SubExpenseHeadID", head.SubExpenseHeadName, head.SubExpenseHeadID.ToString()))
+                    if (AlreadyExist.IsExistOnUpdate("tbl_SubExpenseHead", "SubExpenseHeadName", "SubExpenseHeadID", head.SubExpenseHeadName, head.SubExpenseHeadID.ToString()))
                     {
                         Custom.Msg.Message = "Expense Head Name Aready Exists";
                         return false;
@@ -91,7 +91,7 @@ namespace ExpenseManagement.Models.BLs
                 }
                 else
                 {
-                    if (Helper.IsExist("tbl_SubExpenseHead", "SubExpenseHeadName", head.SubExpenseHeadName))
+                    if (AlreadyExist.IsExist("tbl_SubExpenseHead", "SubExpenseHeadName", head.SubExpenseHeadName))
                     {
                         Custom.Msg.Message = "Expense Head Name Aready Exists";
                         return false;
@@ -112,7 +112,7 @@ namespace ExpenseManagement.Models.BLs
         [Required]
         public string SubExpenseHeadName { get; set; }
         [Required]
-        public int ExpenseHeadID { get; set; }
+        public int? ExpenseHeadID { get; set; }
         [Required]
         public int? SubExpenseStatus { get; set; }
         [DisplayName("Expense Head")]

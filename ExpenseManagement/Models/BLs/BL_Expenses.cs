@@ -48,6 +48,7 @@ namespace ExpenseManagement.Models.BLs
                 Expenses expenses1 = new Expenses();
                 expenses1.ExpenseID = Convert.ToInt32(dr["ExpenseID"]);
                 expenses1.ExpenseHeadID = Convert.ToInt32(dr["ExpenseHeadID"]);
+                expenses1.SubExpenseHeadID = Convert.ToInt32(dr["SubExpenseHeadID"]);
                 expenses1.ExpenseAmount = Convert.ToDecimal(dr["ExpenseAmount"]);
                 expenses1.ExpenseHeadName = Convert.ToString(dr["ExpenseHeadName"]);
                 expenses1.SubExpenseHeadName = Convert.ToString(dr["SubExpenseHeadName"]);   
@@ -83,6 +84,14 @@ namespace ExpenseManagement.Models.BLs
         [Required]
         public string Description { get; set; }
         public SelectList _Expense_Heads { get; set; }
+        public List<Expenses> ExpensesList { get; set; }
+        private bool _isfiltering;
+        public bool IsFiltering
+        {
+            get { return _isfiltering; } set { this._isfiltering = value; }
+        }
+            
+               
 
     }
 

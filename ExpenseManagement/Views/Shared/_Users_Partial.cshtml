@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ExpenseManagement.Models.BLs.User>
+<div class="table-responsive">
+    <table class=" table row-border hover order-column table-condensed table-bordered" id="table_id">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserRole)
+                </th>
+                <th>&nbsp; &nbsp; Actions &nbsp; &nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @if (item.UserStatus == 1)
+                        {
+                                <span class="badge badge-info">Active</span>
+                        }
+                       else if(item.UserStatus==2)
+                        {
+                            <span class="badge badge-danger">InActive</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.UserRole == 1)
+                        {
+                            <span class="badge badge-primary badge-pill">Super Admin</span>
+                        }
+                        else if (item.UserRole == 2)
+                        {
+                            <span class="badge badge-secondary">Admin</span>
+                        }
+                    </td>
+                    <td>
+                        <button data-toggle="modal" data-target="#myModal" class="btn btn-outline-info" onclick="getuserByID(@item.UserID)"><i class="fa fa-edit"></i></button>
+                        <button  class="btn btn-outline-danger" onclick="Delete(@item.UserID)"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

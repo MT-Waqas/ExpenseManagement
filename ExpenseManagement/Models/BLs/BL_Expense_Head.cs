@@ -37,7 +37,7 @@ namespace ExpenseManagement.Models.BLs
         {
             if (head.ExpensHeadID > 0)
             {
-                if (Helper.IsExistOnUpdate("tbl_ExpenseHead", "ExpenseHeadName", "IsDelete", "ExpensHeadID", head.ExpenseHeadName, "0", head.ExpensHeadID.ToString()))
+                if (AlreadyExist.IsExistOnUpdate("tbl_ExpenseHead", "ExpenseHeadName", "IsDelete", "ExpensHeadID", head.ExpenseHeadName, "0", head.ExpensHeadID.ToString()))
                 {
                     Custom.Msg.Message = "Expense Head Name Aready Exists";
                     return false;
@@ -51,7 +51,7 @@ namespace ExpenseManagement.Models.BLs
             }
             else
             {
-                if (Helper.IsExist("tbl_ExpenseHead", "ExpenseHeadName", "IsDelete", head.ExpenseHeadName, "0"))
+                if (AlreadyExist.IsExist("tbl_ExpenseHead", "ExpenseHeadName", "IsDelete", head.ExpenseHeadName, "0"))
                 {
                     Custom.Msg.Message = "Expense Head Name Aready Exists";
                     return false;
@@ -66,24 +66,6 @@ namespace ExpenseManagement.Models.BLs
 
         }
 
-        //public static void Update(ExpenseHead head)
-        //{
-        //    if (IsValid(head))
-        //    {
-        //        SqlParameter[] prm = new SqlParameter[]
-        //       {
-        //           new SqlParameter("ExpensHeadID",head.ExpensHeadID),
-        //           new SqlParameter("ExpenseHeadName",head.ExpenseHeadName),
-        //           new SqlParameter("Status",head.Status),
-        //           new SqlParameter("type",Actions.Update)
-        //       };
-        //        Helper.sp_ExecuteQuery("sp_ExpenseHead", prm);
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //}
         public static int Delete(int ID)
         {
             //if (custom.CheckBeforeDeletion("ExpensHeadID", Convert.ToString(ID)))
@@ -115,19 +97,21 @@ namespace ExpenseManagement.Models.BLs
                    new SqlParameter("ExpensHeadID",head.ExpensHeadID),
                    new SqlParameter("ExpenseHeadName",head.ExpenseHeadName),
                    new SqlParameter("Status",head.Status),
+
                    new SqlParameter("type",Actions.Select)
                };
             DataTable dt = Helper.sp_Execute_Table("sp_ExpenseHead", prm);
-            foreach (DataRow dr in dt.Rows)
-            {
-                ExpenseHead expenseHead = new ExpenseHead();
-                expenseHead.ExpensHeadID = Convert.ToInt32(dr["ExpensHeadID"]);
-                expenseHead.ExpenseHeadName = Convert.ToString(dr["ExpenseHeadName"]);
-                expenseHead.Status = Convert.ToInt32(dr["Status"]);
+            //foreach (DataRow dr in dt.Rows)
+            //{
+            //    ExpenseHead expenseHead = new ExpenseHead();
+            //    expenseHead.ExpensHeadID = Convert.ToInt32(dr["ExpensHeadID"]);
+            //    expenseHead.ExpenseHeadName = Convert.ToString(dr["ExpenseHeadName"]);
+            //    expenseHead.Status = Convert.ToInt32(dr["Status"]);
 
-                heads.Add(expenseHead);
-            }
-            return heads;
+            //    heads.Add(expenseHead);
+            //}
+            return  Helper.DataTableToList<ExpenseHead>(dt);
+            //return heads;
         }
     }
     public class ExpenseHead
@@ -138,6 +122,6 @@ namespace ExpenseManagement.Models.BLs
         public string ExpenseHeadName { get; set; }
         [Required(ErrorMessage = "Please Select the Status")]
         public int? Status { get; set; }
-        public int IsDeleted { get; set; }
+        public int IsDelete { get; set; }
     }
 }

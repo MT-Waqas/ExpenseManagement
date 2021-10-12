@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ExpenseManagement.BasePage;
 
 namespace ExpenseManagement.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : UserBasePage
     {
         public ActionResult Index()
         {
+            
             return View();
         }
 

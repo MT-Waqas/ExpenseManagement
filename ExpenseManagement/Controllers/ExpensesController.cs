@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using ExpenseManagement.BasePage;
 namespace ExpenseManagement.Controllers
 {
-    public class ExpensesController : Controller
+    public class ExpensesController : UserBasePage
     {
 
         public ActionResult ExpenseList()
@@ -43,7 +43,6 @@ namespace ExpenseManagement.Controllers
         public ActionResult Expense(int? id)
         {
             Expenses expenses = new Expenses();
-            expenses._Expense_Heads=new SelectList(BL_Expense_Head.GetHeads(),"ExpensHeadID","ExpenseHeadName");
             if (id>0)
             {
                expenses.ExpenseID = id;

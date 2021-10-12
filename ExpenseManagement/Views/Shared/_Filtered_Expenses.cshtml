@@ -1,34 +1,53 @@
-﻿@model ExpenseManagement.Models.BLs.ViewModel
-@*<head>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <link href="~/assets/DataTables-1.11.1/css/jquery.dataTables.css" rel="stylesheet" />
-</head>*@
+﻿@model ExpenseManagement.Models.BLs.Expenses
 <div class="table-responsive">
-    <table class="row-border hover order-column table-condensed table-bordered" id="table_id">
+    <table class=" table row-border hover order-column table-condensed table-bordered" id="table_id">
         <thead>
             <tr>
                 <th>
-                    Expense Head
+                    @Html.DisplayNameFor(model => model.ExpenseHeadName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Expense.ExpenseAmount)
+                    @Html.DisplayNameFor(model => model.SubExpenseHeadName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Expense.ExpenseDate)
+                    @Html.DisplayNameFor(model => model.ExpenseAmount)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Expense.Description)
+                    @Html.DisplayNameFor(model => model.ExpenseDate)
                 </th>
-                <th>Actions</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                @if (Model.IsFiltering == true)
+                {
+
+                }
+                else
+                {
+                    <th>&nbsp;&nbsp;&nbsp;Actions&nbsp;&nbsp;&nbsp;</th>
+                }
+
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Expenses)
+            @foreach (var item in Model.ExpensesList)
             {
+                string cclass = "";
+
                 <tr>
+                    @if (item.ExpenseHeadName == "Construction")
+                    {
+                        cclass = "badge badge-danger";
+                    }
+                    else
+                    {
+                        cclass = "";
+                    }
                     <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseHeadName)
+                        <span class="@cclass">  @Html.DisplayFor(modelItem => item.ExpenseHeadName)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubExpenseHeadName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ExpenseAmount)
@@ -39,27 +58,21 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Expense", new { id = item.ExpenseID }, new { @class = "btn btn-default" }) |
-                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ExpenseID }, new { @class = "btn btn-default" })
-                    </td>
+                    @if (Model.IsFiltering == true)
+                    {
+
+                    }
+                    else
+                    {
+                <td>
+                    <a href='@Url.Action("Expense","Expenses",new {id=item.ExpenseID})' class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
+                    <a href='@Url.Action("Delete","Expenses",new {id= item.ExpenseID })' class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+          
+                </td>
+                    }
+
                 </tr>
             }
         </tbody>
     </table>
 </div>
-@*<script src="~/assets/DataTables-1.11.1/js/jquery.dataTables.js"></script>
-<script>
-    $(document).ajaxComplete(function () {
-        var table = $('#table_id').DataTable();
-
-        $('#table_id tbody')
-            .on('mouseenter', 'td', function () {
-                var colIdx = table.cell(this).index().column;
-
-                $(table.cells().nodes()).removeClass('highlight');
-                $(table.column(colIdx).nodes()).addClass('highlight');
-            });
-    });
-</script>*@
