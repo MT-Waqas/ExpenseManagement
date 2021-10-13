@@ -15,7 +15,9 @@ namespace ExpenseManagement.Controllers
 
         public ActionResult Index()
         {
-            List<ExpenseHead> expenseHeads = BL_Expense_Head.GetHeads();
+            ExpenseHead h = new ExpenseHead();
+            h.UserID = Convert.ToInt32(Session["UserID"]);
+            List<ExpenseHead> expenseHeads = BL_Expense_Head.GetHeads(h);
             return View("ExpenseHeadList", expenseHeads);
         }
         public ActionResult ExpenseHead(int? ID)
@@ -37,8 +39,9 @@ namespace ExpenseManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                expenseHead.UserID = Convert.ToInt32(Session["UserID"]);
                 if (expenseHead.ExpensHeadID > 0)
-                {   
+                {
                     if (BL_Expense_Head.Save(expenseHead, false))
                     {
                         TempData["bit"] = 2;

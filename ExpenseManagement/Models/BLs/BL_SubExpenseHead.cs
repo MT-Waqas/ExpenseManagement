@@ -57,6 +57,7 @@ namespace ExpenseManagement.Models.BLs
                    new SqlParameter("SubExpenseHeadName",head.SubExpenseHeadName),
                    new SqlParameter("ExpenseHeadID",head.ExpenseHeadID),
                    new SqlParameter("SubExpenseStatus",head.SubExpenseStatus),
+                   new SqlParameter("UserID",head.UserID),
                    new SqlParameter("type",Actions.Select)
                };
             DataTable dt = Helper.sp_Execute_Table("sp_SubExpenseHead", prm);
@@ -118,6 +119,7 @@ namespace ExpenseManagement.Models.BLs
         [DisplayName("Expense Head")]
         public string ExpenseHeadName { get; set; }
         public SelectList Subheadlist { get; set; }
+        public int? UserID { get; set; }
 
     }
 }

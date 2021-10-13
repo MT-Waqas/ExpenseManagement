@@ -23,6 +23,7 @@ namespace ExpenseManagement.Models.BLs
                    new SqlParameter("ExpensHeadID",head.ExpensHeadID),
                    new SqlParameter("ExpenseHeadName",head.ExpenseHeadName),
                    new SqlParameter("Status",head.Status),
+                   new SqlParameter("UserID",head.UserID),
                    new SqlParameter("type",IsNew==true?Actions.Insert:Actions.Update)
                 };
                 Helper.sp_ExecuteQuery("sp_ExpenseHead", prm);
@@ -97,7 +98,7 @@ namespace ExpenseManagement.Models.BLs
                    new SqlParameter("ExpensHeadID",head.ExpensHeadID),
                    new SqlParameter("ExpenseHeadName",head.ExpenseHeadName),
                    new SqlParameter("Status",head.Status),
-
+                   new SqlParameter("UserID",head.UserID),
                    new SqlParameter("type",Actions.Select)
                };
             DataTable dt = Helper.sp_Execute_Table("sp_ExpenseHead", prm);
@@ -110,7 +111,7 @@ namespace ExpenseManagement.Models.BLs
 
             //    heads.Add(expenseHead);
             //}
-            return  Helper.DataTableToList<ExpenseHead>(dt);
+            return Helper.DataTableToList<ExpenseHead>(dt);
             //return heads;
         }
     }
@@ -123,5 +124,6 @@ namespace ExpenseManagement.Models.BLs
         [Required(ErrorMessage = "Please Select the Status")]
         public int? Status { get; set; }
         public int IsDelete { get; set; }
+        public int? UserID { get; set; }
     }
 }

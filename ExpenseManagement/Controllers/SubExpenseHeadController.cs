@@ -13,7 +13,9 @@ namespace ExpenseManagement.Controllers
         // GET: SubExpenseHead
         public ActionResult SubExpenseHeads()
         {
-            var list=  BL_SubExpenseHead.Get_SubHeads();
+            SubExpenseHead s=new SubExpenseHead();
+            s.UserID = Convert.ToInt32(Session["UserID"]);
+            var list=  BL_SubExpenseHead.Get_SubHeads(s);
             return View(list);
         }
         public ActionResult SubExpenseHead(int? ID)

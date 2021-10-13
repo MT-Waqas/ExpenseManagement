@@ -15,7 +15,11 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ExpenseHeadName, htmlAttributes: new { @class = "control-label col-md-2" })
-            @{var list = new SelectList(ExpenseManagement.Models.BLs.BL_Expense_Head.GetHeads(), "ExpensHeadID", "ExpenseHeadName"); }
+            @{
+                ExpenseManagement.Models.BLs.ExpenseHead e = new ExpenseManagement.Models.BLs.ExpenseHead();
+                e.UserID = Convert.ToInt32(Session["UserID"]);
+                var list = new SelectList(ExpenseManagement.Models.BLs.BL_Expense_Head.GetHeads(e), "ExpensHeadID", "ExpenseHeadName");
+                }
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.ExpenseHeadID, @list as SelectList, "Select the Heads", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ExpenseHeadID, "", new { @class = "text-danger" })
